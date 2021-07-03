@@ -1,0 +1,30 @@
+{
+    "name": "real-estate",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "pre-commit": "lint-staged",
+        "start": "nodemon --inspect ./bin/www",
+        "watch": "node-sass --watch public/stylesheets/ --output public/css/",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "express-handlebars": "^5.3.2",
+        "http-errors": "~1.6.3",
+        "jade": "~1.11.0",
+        "morgan": "~1.9.1"
+    },
+    "devDependencies": {
+        "lint-staged": "^11.0.0",
+        "node-sass": "^6.0.1",
+        "nodemon": "^2.0.9",
+        "prettier": "^2.3.2",
+        "husky": "^7.0.0"
+    }
+}
