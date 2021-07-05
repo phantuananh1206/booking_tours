@@ -2,3 +2,27 @@
     margin: 0;
     padding: 0;
 }
+
+// Form Sign up
+.sign-up-form {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 15px 1px rgba(52, 40, 104, 0.08);
+}
+
+.sign-up-form {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e5e9f2;
+    border-radius: 0.2rem;
+}
+
+.mt-sign-up-form {
+    margin-top: 10rem;
+}
