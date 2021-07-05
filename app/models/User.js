@@ -17,6 +17,7 @@ const UserSchema = new Schema(
             lowercase: true,
             match: VALID_EMAIL_REGEX,
         },
+        password: { type: String, required: true },
         phone_number: {
             type: String,
             unique: true,
@@ -25,7 +26,8 @@ const UserSchema = new Schema(
         role: {
             type: String,
             required: true,
-            enum: ['Admin', 'Customer'],
+            enum: ['admin', 'customer'],
+            default: 'customer',
         },
     },
     {
