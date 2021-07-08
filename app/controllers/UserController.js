@@ -1,5 +1,7 @@
 const User = require('../models/User');
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const sendMail = require('../mailers/mail');
 
 class UserController {
     // [POST] /sign-up
@@ -9,10 +11,32 @@ class UserController {
 
     async create(req, res, next) {
         try {
+            if (User.findOne({ email: req.body.email })) {
+                return res
+                    .status(400)
+                    .json({ error: 'User with this email already exists' });
+            }
+
             req.body.password = await bcrypt.hash(req.body.password, 10);
             const user = new User(req.body);
             user.save()
-                .then(() => res.redirect('/'))
+                .then(() => {
+                    sendMail(
+                        'phantuananhltt@gmail.com',
+                        'Confirm email',
+                        'Please Confirm your email!',
+                        function (error, info) {
+                            if (error) {
+                                res.status(500).json({
+                                    message: 'Internal Error',
+                                });
+                            } else {
+                                res.json({ message: 'Email sent' });
+                            }
+                        },
+                    );
+                    res.redirect('/');
+                })
                 .catch((next) => {});
         } catch (e) {
             res.status(500).send('Something broke!');
