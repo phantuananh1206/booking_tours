@@ -3,6 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sendMail = require('../mailers/mail');
+const sendConfirmationEmail = require('../mailers/confirmation');
 
 class UserController {
     // [POST] /sign-up
@@ -25,33 +26,7 @@ class UserController {
             const user = new User(req.body);
             user.save()
                 .then(() => {
-                    const token = jwt.sign(
-                        { email },
-                        process.env.JWT_EMAIL_ACTIVATE,
-                        { expiresIn: '1d' },
-                    );
-                    User.updateOne(
-                        { email },
-                        { activation_digest: token },
-                    ).exec((err, res) => {
-                        if (err) throw err;
-                    });
-                    sendMail(
-                        'phantuananhltt@gmail.com',
-                        'Confirm email',
-                        'Please Confirm your email!',
-                        `<h2>Please click on given link to activate your account</h2>
-                        <p>${process.env.CLIENT_URL}/user/confirmation/${token}</p>`,
-                        function (error, info) {
-                            if (error) {
-                                res.status(500).json({
-                                    error: 'Error' + error.message,
-                                });
-                            } else {
-                                res.json({ message: 'Email sent' });
-                            }
-                        },
-                    );
+                    sendConfirmationEmail(email, User);
                     res.redirect('/');
                 })
                 .catch((next) => {});
@@ -69,12 +44,17 @@ class UserController {
                     user.password,
                 );
                 if (validPassword) {
-                    res.status(200).redirect('/');
+                    if (user.activated == true) {
+                        res.status(200).redirect('/');
+                    } else {
+                        sendConfirmationEmail(user.email, User);
+                        res.redirect('/');
+                    }
                 } else {
+                    res.status(400).json('Invalid password!');
                 }
             } else {
-                res.status(404).json('Password not valid!');
-                alert('User not found');
+                res.status(404).json('User not found!');
             }
         } catch (e) {
             res.status(500).send('Something broke!');
