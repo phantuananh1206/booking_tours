@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+const userController = require('../app/controllers/UserController');
+
+router.get('/sign-up', userController.new);
+router.post('/sign-up', userController.create);
+router.post('/sign-in', userController.signin);
+router.get('/confirmation/:token', userController.activateAccount);
 
 module.exports = router;

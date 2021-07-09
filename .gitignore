@@ -1,2 +1,4 @@
-public/css/
+public/assets/css/
 node_modules
+public/vendor/
+.env
