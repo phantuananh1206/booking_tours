@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const date = require('date-and-time');
 
 const Schema = mongoose.Schema;
 
@@ -29,6 +30,11 @@ const UserSchema = new Schema(
             enum: ['admin', 'customer'],
             default: 'customer',
         },
+        activated: {
+            type: Boolean,
+            default: false,
+        },
+        activation_digest: { type: String, default: '' },
     },
     {
         _id: false,
