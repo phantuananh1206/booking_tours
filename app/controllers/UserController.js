@@ -1,3 +1,4 @@
+require('dotenv').config();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -11,24 +12,40 @@ class UserController {
 
     async create(req, res, next) {
         try {
-            if (User.findOne({ email: req.body.email })) {
-                return res
-                    .status(400)
-                    .json({ error: 'User with this email already exists' });
-            }
+            const { name, email } = req.body;
+            User.findOne({ email }).exec((error, user) => {
+                if (user) {
+                    return res
+                        .status(400)
+                        .json({ error: 'User with this email already exists' });
+                }
+            });
 
             req.body.password = await bcrypt.hash(req.body.password, 10);
             const user = new User(req.body);
             user.save()
                 .then(() => {
+                    const token = jwt.sign(
+                        { email },
+                        process.env.JWT_EMAIL_ACTIVATE,
+                        { expiresIn: '1d' },
+                    );
+                    User.updateOne(
+                        { email },
+                        { activation_digest: token },
+                    ).exec((err, res) => {
+                        if (err) throw err;
+                    });
                     sendMail(
                         'phantuananhltt@gmail.com',
                         'Confirm email',
                         'Please Confirm your email!',
+                        `<h2>Please click on given link to activate your account</h2>
+                        <p>${process.env.CLIENT_URL}/user/confirmation/${token}</p>`,
                         function (error, info) {
                             if (error) {
                                 res.status(500).json({
-                                    message: 'Internal Error',
+                                    error: 'Error' + error.message,
                                 });
                             } else {
                                 res.json({ message: 'Email sent' });
@@ -61,6 +78,48 @@ class UserController {
             }
         } catch (e) {
             res.status(500).send('Something broke!');
+        }
+    }
+
+    activateAccount(req, res, next) {
+        const token = req.params.token;
+        if (token) {
+            jwt.verify(
+                token,
+                process.env.JWT_EMAIL_ACTIVATE,
+                function (err, decodedToken) {
+                    if (err) {
+                        return res
+                            .status(400)
+                            .json({ error: 'Incorrect of Expired link.' });
+                    }
+
+                    const { email } = decodedToken;
+                    User.findOne({ email }).exec((error, user) => {
+                        if (user && user.activated == false) {
+                            if (user.activation_digest == token) {
+                                User.updateOne(
+                                    { email },
+                                    { activated: true },
+                                ).exec((err, res) => {
+                                    if (err) throw err;
+                                });
+                                return res.redirect('http://localhost:3000/');
+                            } else {
+                                res.status(400).json({
+                                    error: 'Confirmation failed!!!',
+                                });
+                            }
+                        } else {
+                            res.status(400).json({
+                                error: 'Email has been activated!!!',
+                            });
+                        }
+                    });
+                },
+            );
+        } else {
+            return res.json({ error: 'Something went wrong!!!' });
         }
     }
 }

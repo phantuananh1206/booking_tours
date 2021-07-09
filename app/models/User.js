@@ -34,11 +34,7 @@ const UserSchema = new Schema(
             type: Boolean,
             default: false,
         },
-        activation_digest: { type: String },
-        expireAt: {
-            type: Date,
-            default: date.addDays(new Date(), 3),
-        },
+        activation_digest: { type: String, default: '' },
     },
     {
         _id: false,

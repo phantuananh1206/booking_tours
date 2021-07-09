@@ -46,5 +46,4 @@ app.use(express.static(path.join(__dirname + '/public')));
 
 route(app);
 
-module.exports = route;
 module.exports = app;
