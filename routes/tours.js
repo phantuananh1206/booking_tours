@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const TourController = require('../app/controllers/TourController');
+const tourController = require('../app/controllers/TourController');
+
+router.get('/:slug', tourController.show);
 
 module.exports = router;
