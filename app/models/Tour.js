@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const slug = require('mongoose-slug-generator');
 
 const Schema = mongoose.Schema;
 
 const TourSchema = new Schema(
     {
-        _id: { type: Number },
         name: { type: String, required: true, maxLength: 255 },
         address: {
             type: String,
@@ -23,11 +22,10 @@ const TourSchema = new Schema(
         slug: { type: String, slug: 'name', unique: true },
     },
     {
-        _id: false,
         timestamps: true,
     },
 );
 
-TourSchema.plugin(AutoIncrement);
+mongoose.plugin(slug);
 
 module.exports = mongoose.model('Tour', TourSchema);

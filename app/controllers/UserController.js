@@ -2,7 +2,6 @@ require('dotenv').config();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const sendMail = require('../mailers/mail');
 const sendConfirmationEmail = require('../mailers/confirmation');
 
 class UserController {

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 const date = require('date-and-time');
 
 const Schema = mongoose.Schema;
@@ -10,7 +9,6 @@ const VALID_PHONE_REGEX = /^[0-9]{10}$/;
 
 const UserSchema = new Schema(
     {
-        _id: { type: Number },
         name: { type: String, required: true, maxLength: 255 },
         email: {
             type: String,
@@ -37,11 +35,8 @@ const UserSchema = new Schema(
         activation_digest: { type: String, default: '' },
     },
     {
-        _id: false,
         timestamps: true,
     },
 );
-
-UserSchema.plugin(AutoIncrement);
 
 module.exports = mongoose.model('User', UserSchema);
