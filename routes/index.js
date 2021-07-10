@@ -4,8 +4,8 @@ const tourRouter = require('./tours');
 
 function route(app) {
     app.use('/', homeRouter);
-    app.use('/user', userRouter);
-    app.use('/tour', tourRouter);
+    app.use('/users', userRouter);
+    app.use('/tours', tourRouter);
 }
 
 module.exports = route;
