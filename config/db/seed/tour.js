@@ -9,7 +9,7 @@ for (let i = 0; i < 30; i++) {
         address: faker.address.streetAddress(),
         price: faker.commerce.price(),
         vehicle: faker.vehicle.vehicle(),
-        timetable: '2 ngày 1 đêm',
+        timetable: '2 days 1 night',
     });
 }
 

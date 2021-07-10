@@ -17,6 +17,9 @@ app.engine(
     'hbs',
     exphbs({
         extname: 'hbs',
+        // helpers: {
+        //     foo: function () { return ; },
+        // },
     }),
 );
 app.set('view engine', 'hbs');
