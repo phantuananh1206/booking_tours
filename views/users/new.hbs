@@ -10,7 +10,7 @@
                 <div class="card sign-up-form">
                     <div class="card-body">
                         <div class="m-sm-4">
-                            <form method="POST" action="/user/sign-up">
+                            <form method="POST" action="/users/sign-up">
                                 <div class="form-group">
                                     <label>Name</label>
                                     <input class="form-control form-control-sm" type="text" name="name"
@@ -31,6 +31,11 @@
                                     <input class="form-control form-control-sm" type="password" name="password"
                                         placeholder="Enter password">
                                 </div>
+                                {{!-- <div class="form-group">
+                                    <label>Password confirmation</label>
+                                    <input class="form-control form-control-sm" type="password" name="password_confirmation"
+                                        placeholder="Enter password confirmation">
+                                </div>                                 --}}
                                 <div class="text-center mt-3">
                                     {{!-- <a href="" class="btn btn-lg btn-primary">Sign up</a> --}}
                                     <button type="submit" class="btn btn-lg btn-primary">Sign up</button> 

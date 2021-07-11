@@ -293,3 +293,20 @@
     text-transform: uppercase;
     cursor: pointer;
 }
+
+// Header
+.custom-dropdown-item {
+    color: #000 !important;
+}
+
+.custom-dropdown-item:hover {
+    color: #00d8ff !important;
+    background-color: transparent !important;
+}
+
+.nav .open > .custom-dropdown-toggle,
+.nav .open > .custom-dropdown-toggle:focus,
+.nav .open > .custom-dropdown-toggle:hover {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}

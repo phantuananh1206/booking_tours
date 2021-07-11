@@ -14,7 +14,7 @@ const sendConfirmationEmail = function (email, User) {
         'Confirm email',
         'Please Confirm your email!',
         `<h2>Please click on given link to activate your account</h2>
-        <p>${process.env.CLIENT_URL}/user/confirmation/${token}</p>`,
+        <p>${process.env.CLIENT_URL}/users/confirmation/${token}</p>`,
         function (error, info) {
             if (error) {
                 res.status(500).json({

@@ -25,10 +25,26 @@
 								<li class="smooth-menu"><a href="/">home</a></li>
 								<li class="smooth-menu"><a href="#gallery">Destination</a></li>
 								<li class="smooth-menu"><a href="#pack">Packages </a></li>
+								{{#if session.isLogin}}
+								<li>
+									<div class="dropdown">
+										<a class="custom-dropdown-toggle btn btn-secondary dropdown-toggle"
+											type="button" id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+											Account
+										</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="custom-dropdown-item dropdown-item" href="/users/sign-out">Sign
+												out</a>
+										</div>
+									</div>
+								</li>
+								{{else}}
 								<ul class="nav navbar-nav navbar-right">
-									<li><a href="/user/sign-up">Sign Up</a></li>
+									<li><a href="/users/sign-up">Sign Up</a></li>
 									{{> sign_in}}
 								</ul>
+								{{/if}}
 							</ul>
 						</div><!-- /.navbar-collapse -->
 					</div><!-- /.main-menu-->
