@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var exphbs = require('express-handlebars');
+var session = require('express-session');
+require('dotenv').config();
 
 var app = express();
 
@@ -12,14 +14,26 @@ const db = require('./config/db');
 
 db.connect();
 
+app.use(
+    session({
+        secret: process.env.SECRET_KEY,
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 3600000 },
+    }),
+);
+
+app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
+
 // view engine setup
 app.engine(
     'hbs',
     exphbs({
         extname: 'hbs',
-        // helpers: {
-        //     foo: function () { return ; },
-        // },
+        helpers: {},
     }),
 );
 app.set('view engine', 'hbs');
