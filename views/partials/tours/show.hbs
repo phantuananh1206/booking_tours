@@ -97,7 +97,8 @@
                     <div class="row">
                         <div class="col-md-7">
                             <label for="departure_date">Departure date</label>
-                            <input type="text" name="departure_date" id="departure_date" data-toggle="datepicker">
+                            <br>
+                            <input type="text" name="departure_date" id="departure_date">
                         </div>
                         <div class="col-md-7">
                             <label for="color">Number of guests</label>
@@ -108,7 +109,7 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <a href="#" class="round-black-btn">Booking Tour</a>
+                            <a href="/booking/new" class="round-black-btn booking-tour-btn">Booking Tour</a>
                         </div>
                     </div>
                 </div>
@@ -263,5 +264,10 @@
                 $(".qty").val(parseInt(now) + 1);
             }
         });
+        $('#departure_date').datepicker();
+        $('.booking-tour-btn').on('click', function () {
+            var val = new Date($('#departure_date').datepicker('getValue'));
+            console.log(val.getFullYear());
+        })
     });
 </script>

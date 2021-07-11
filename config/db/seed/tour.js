@@ -10,6 +10,7 @@ for (let i = 0; i < 30; i++) {
         price: faker.commerce.price(),
         vehicle: faker.vehicle.vehicle(),
         timetable: '2 days 1 night',
+        number_of_days: 2,
     });
 }
 
