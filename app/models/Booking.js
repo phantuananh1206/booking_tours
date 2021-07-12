@@ -11,27 +11,28 @@ const BookingSchema = new Schema(
         name: { type: String, required: true, maxLength: 255 },
         email: {
             type: String,
-            unique: true,
             lowercase: true,
             match: VALID_EMAIL_REGEX,
         },
         phone_number: {
             type: String,
-            unique: true,
             match: VALID_PHONE_REGEX,
         },
+        address: { type: String, required: true },
+        requirement: { type: String },
         user: {
-            type: ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User',
         },
         tour: {
-            type: ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Tour',
         },
         booking_details: {
             departure_date: Date,
             guest_number: Number,
             price: Number,
+            total: Number,
             date_from: Date,
             date_to: Date,
         },

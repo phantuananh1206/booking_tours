@@ -44,11 +44,15 @@
                                 </p>
                             </div>
                             <!--/.packages-review-->
-                            <div class="about-btn">
-                                <a href="/booking/new" class="about-view packages-btn">
-                                    book now
-                                </a>
-                            </div>
+                            <form action="/booking/tour/{{this._id}}">
+                                <div class="about-btn">
+                                    <input type="hidden" name="price" value="{{this.price}}">
+                                    <button href="" class="about-view packages-btn">
+                                        book now
+                                    </button>
+                                </div>
+                            </form>
+
                             <!--/.about-btn-->
                         </div>
                         <!--/.single-package-item-txt-->
