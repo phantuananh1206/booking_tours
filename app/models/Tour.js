@@ -13,6 +13,10 @@ const TourSchema = new Schema(
             type: Number,
             required: true,
         },
+        number_of_days: {
+            type: Number,
+            required: true,
+        },
         vehicle: {
             type: String,
         },

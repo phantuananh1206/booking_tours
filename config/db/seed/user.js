@@ -8,6 +8,7 @@ for (let i = 0; i < 10; i++) {
         name: faker.name.findName(),
         email: faker.internet.email(),
         password: 'Test123@',
+        address: faker.address.streetAddress(),
         phone_number: `012345678${i}`,
         activated: true,
     });

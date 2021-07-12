@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const date = require('date-and-time');
 
 const Schema = mongoose.Schema;
 
@@ -17,6 +16,7 @@ const UserSchema = new Schema(
             match: VALID_EMAIL_REGEX,
         },
         password: { type: String, required: true },
+        address: { type: String },
         phone_number: {
             type: String,
             unique: true,

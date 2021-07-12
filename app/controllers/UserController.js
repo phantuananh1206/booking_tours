@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const sendConfirmationEmail = require('../mailers/confirmation');
 
 class UserController {
-    // [POST] /sign-up
+    // [GET] /users/new
     new(req, res, next) {
         res.render('users/new');
     }
