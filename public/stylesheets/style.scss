@@ -336,7 +336,7 @@ body {
     transition: 0.5s ease-in-out;
 }
 .about-view {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     background: #00d8ff;

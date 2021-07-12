@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var exphbs = require('express-handlebars');
+var session = require('express-session');
+require('dotenv').config();
 
 var app = express();
 
@@ -12,11 +14,26 @@ const db = require('./config/db');
 
 db.connect();
 
+app.use(
+    session({
+        secret: process.env.SECRET_KEY,
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 3600000 },
+    }),
+);
+
+app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
+
 // view engine setup
 app.engine(
     'hbs',
     exphbs({
         extname: 'hbs',
+        helpers: {},
     }),
 );
 app.set('view engine', 'hbs');
@@ -27,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname + '/public')));
-
+process.env.TZ = 'Asia/Ho_Chi_Minh';
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
 //     next(createError(404));

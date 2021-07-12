@@ -1,0 +1,74 @@
+<!--packages start-->
+<section id="pack" class="packages">
+    <div class="container">
+        <div class="gallary-header text-center">
+            <h2>
+                special packages
+            </h2>
+            <p>
+                Duis aute irure dolor in velit esse cillum dolore eu fugiat nulla.
+            </p>
+        </div>
+        <!--/.gallery-header-->
+        <div class="packages-content">
+            <div class="row">
+                {{#each tours}}
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-package-item">
+                        <a href="/tours/{{this.slug}}"><img src="assets/images/packages/p1.jpg" alt="package-place"></a>
+                        <div class="single-package-item-txt">
+                            <h3>{{this.name}} <span class="pull-right">${{this.price}}</span></h3>
+                            <div class="packages-para">
+                                <p>
+                                    <span>
+                                        <i class="fa fa-angle-right"></i> {{this.timetable}}
+                                    </span>
+                                    <i class="fa fa-angle-right"></i> 5 star accomodation
+                                </p>
+                                <p>
+                                    <span>
+                                        <i class="fa fa-angle-right"></i> transportation
+                                    </span>
+                                    <i class="fa fa-angle-right"></i> food facilities
+                                </p>
+                            </div>
+                            <!--/.packages-para-->
+                            <div class="packages-review">
+                                <p>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span>2544 review</span>
+                                </p>
+                            </div>
+                            <!--/.packages-review-->
+                            <form action="/booking/tour/{{this._id}}">
+                                <div class="about-btn">
+                                    <input type="hidden" name="price" value="{{this.price}}">
+                                    <button href="" class="about-view packages-btn">
+                                        book now
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!--/.about-btn-->
+                        </div>
+                        <!--/.single-package-item-txt-->
+                    </div>
+                    <!--/.single-package-item-->
+
+                </div>
+                <!--/.col-->
+                {{/each}}
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.packages-content-->
+    </div>
+    <!--/.container-->
+
+</section>
+<!--/.packages-->
+<!--packages end-->

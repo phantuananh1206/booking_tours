@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const Schema = mongoose.Schema;
 
@@ -9,39 +8,38 @@ const VALID_PHONE_REGEX = /^[0-9]{10}$/;
 
 const BookingSchema = new Schema(
     {
-        _id: { type: Number },
         name: { type: String, required: true, maxLength: 255 },
         email: {
             type: String,
-            unique: true,
             lowercase: true,
             match: VALID_EMAIL_REGEX,
         },
         phone_number: {
             type: String,
-            unique: true,
             match: VALID_PHONE_REGEX,
         },
-        user_id: {
-            type: Number,
+        address: { type: String, required: true },
+        requirement: { type: String },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
         },
-        tour_id: {
-            type: Number,
+        tour: {
+            type: Schema.Types.ObjectId,
+            ref: 'Tour',
         },
         booking_details: {
             departure_date: Date,
             guest_number: Number,
             price: Number,
+            total: Number,
             date_from: Date,
             date_to: Date,
         },
     },
     {
-        _id: false,
         timestamps: true,
     },
 );
-
-BookingSchema.plugin(AutoIncrement);
 
 module.exports = mongoose.model('Booking', BookingSchema);

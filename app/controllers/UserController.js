@@ -2,11 +2,10 @@ require('dotenv').config();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const sendMail = require('../mailers/mail');
 const sendConfirmationEmail = require('../mailers/confirmation');
 
 class UserController {
-    // [POST] /sign-up
+    // [GET] /users/new
     new(req, res, next) {
         res.render('users/new');
     }
@@ -45,6 +44,9 @@ class UserController {
                 );
                 if (validPassword) {
                     if (user.activated == true) {
+                        var sess = req.session;
+                        sess.isLogin = true;
+                        sess.email = user.email;
                         res.status(200).redirect('/');
                     } else {
                         sendConfirmationEmail(user.email, User);
@@ -101,6 +103,11 @@ class UserController {
         } else {
             return res.json({ error: 'Something went wrong!!!' });
         }
+    }
+
+    signout(req, res, next) {
+        req.session.destroy();
+        res.redirect('/');
     }
 }
 

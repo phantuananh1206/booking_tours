@@ -1,0 +1,93 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="container form-booking-tour">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb30 text-center">
+            <h2>Tour & Travel Reservation Booking Form</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb30">
+            <div class="tour-booking-form">
+                <form method="POST" action="/booking/create">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label required" for="select">Number of Persons:</label>
+                                <div class="select">
+                                    <select id="select" name="guest_number" class="form-control" required>
+                                        <option value="">Number of Persons:</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label required" for="departure_date">Departure date</label>
+                                <input id="departure_date" name="departure_date" type="text" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Name</label>
+                                <input id="name" name="name" type="text" placeholder="First Name" class="form-control"
+                                    value="{{user.name}}" required>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label" for="email"> Email</label>
+                                <input id="email" name="email" type="text" placeholder="xxxx@xxxx.xxx"
+                                    class="form-control" value="{{user.email}}" required>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label" for="phone_number">Phone number</label>
+                                <input id="phone_number" type="text" name="phone_number" placeholder="Phone number"
+                                    class="form-control" value="{{user.phone_number}}" required>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label" for="address">Address</label>
+                                <input id="address" type="text" name="address" class="form-control"
+                                    value="{{user.address}}" required>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label class="control-label" for="textarea">Describe Your Travel Requirements</label>
+                                <textarea class="form-control" id="textarea" name="requirement" rows="4"
+                                    placeholder="Write Your Requirements"></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="user" value="{{user._id}}">
+                        <input type="hidden" name="tour" value="{{tour_id}}">
+                        <input type="hidden" name="price" value="{{tour_price}}">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <button type="submit" name="singlebutton" class="btn btn-primary">send Enquiry</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var start = new Date();
+        var end = new Date(new Date().setDate(start.getDate() + 7));
+        $('#departure_date').datepicker({
+            format: 'mm/dd/yyyy',
+            startDate: start,
+            endDate: end,
+        });
+    });
+</script>
